@@ -1,2 +1,2 @@
-# canela-landscaping
+# Canela Landscaping
 Landing site for Canela Landscaping and Snow Plow LLC
