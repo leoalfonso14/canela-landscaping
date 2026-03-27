@@ -8,6 +8,7 @@ import About from "./pages/About";
 import Gallery from "./pages/Gallery";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
+import GalleryPrefetch from "./components/GalleryPrefetch";
 
 function App() {
   const { pathname, hash } = useLocation();
@@ -26,6 +27,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-white">
+      <GalleryPrefetch />
       <Navbar />
       <main>
         <Routes>

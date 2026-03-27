@@ -39,6 +39,32 @@ To move this project to production and enable backend features (like contact for
 
 ---
 
+## 🛠️ Acción Requerida por el Propietario (Pasos de Entrega)
+
+Para llevar este proyecto a producción y habilitar las funciones del backend (como el almacenamiento de contactos), siga estos pasos.
+
+> [!IMPORTANT]
+> Por seguridad, utilice las funciones de "Invitar" o "Miembro del equipo" en estas plataformas en lugar de compartir la contraseña principal de su cuenta.
+
+### 1. GitHub (Repositorio de Código)
+
+- **Crear una Cuenta**: Si no tienes una, regístrate en [github.com](https://github.com).
+- **Crear una Organización**: Crea una organización para "Canela Landscaping".
+- **Invitar Administrador**: Agrega a **@leoalfonso14** o **leandroalfonso14@gmail.com** a tu organización y otorga permisos de **Administrador (Admin)**. Esto permite al desarrollador subir el código y gestionar el repositorio.
+
+### 2. Vercel (Alojamiento y Despliegue)
+
+- **Crear una Cuenta**: Regístrate en [vercel.com](https://vercel.com) usando tu cuenta de GitHub.
+- **Invitar al Desarrollador**: Ve a la configuración de tu equipo (si tienes un plan Pro) o comparte el acceso al proyecto agregando a **@leoalfonso14** o **leandroalfonso14@gmail.com** como miembro/colaborador.
+
+### 3. Supabase (Base de Datos y Contactos)
+
+- **Crear una Cuenta**: Regístrate en [supabase.com](https://supabase.com).
+- **Crear un Proyecto**: Inicia un nuevo proyecto llamado "Canela Landscaping".
+- **Invitar Administrador**: Ve a **Settings > Team** e invita a **leandroalfonso14@gmail.com** por correo electrónico como **Propietario (Owner)** o **Administrador (Administrator)**.
+
+---
+
 ## 💻 Local Development
 
 1. **Install Dependencies**:

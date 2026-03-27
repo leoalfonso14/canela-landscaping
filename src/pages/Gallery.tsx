@@ -4,14 +4,13 @@ import { Link } from "react-router-dom";
 
 const Gallery = () => {
   // Service-specific image portfolios (using placeholders as requested)
-  // These are indexed by service.id
   const serviceImages: Record<string, string[]> = {
     "lawn-mowing": [
       "photo-1558905617-1545cf21a97c",
       "photo-1592419044706-39796d40f98c",
       "photo-1600607687920-4e2a09cf159d",
     ],
-    "edges": [
+    edges: [
       "photo-1598901861713-54ad16a7e70e",
       "photo-1584473457406-623048fc437e",
       "photo-1558905617-1545cf21a97c",
@@ -26,12 +25,12 @@ const Gallery = () => {
       "photo-1585320806297-9794b3e4eeae",
       "photo-1466781783364-391eaf53cf39",
     ],
-    "weeds": [
+    weeds: [
       "photo-1590682847059-69d74259727a",
       "photo-1600607687920-4e2a09cf159d",
       "photo-1600585154340-be6161a56a0c",
     ],
-    "mulch": [
+    mulch: [
       "photo-1541888941295-65c82860a480",
       "photo-1584473457406-623048fc437e",
       "photo-1558905617-1545cf21a97c",
@@ -41,7 +40,7 @@ const Gallery = () => {
       "photo-1598901861713-54ad16a7e70e",
       "photo-1600607687920-4e2a09cf159d",
     ],
-    "reseeding": [
+    reseeding: [
       "photo-1466781783364-391eaf53cf39",
       "photo-1557428807-6ba07633276b",
       "photo-1585320806297-9794b3e4eeae",
@@ -61,7 +60,7 @@ const Gallery = () => {
       "photo-1418985991508-e47386d96a71",
       "photo-1478131143081-80f7f84ca84c",
     ],
-    "patios": [
+    patios: [
       "photo-1584473457406-623048fc437e",
       "photo-1558905617-1545cf21a97c",
       "photo-1592419044706-39796d40f98c",
@@ -71,7 +70,7 @@ const Gallery = () => {
       "photo-1521401830884-6c03c1c87ebb",
       "photo-1418985991508-e47386d96a71",
     ],
-    "gravel": [
+    gravel: [
       "photo-1600585154340-be6161a56a0c",
       "photo-1541888941295-65c82860a480",
       "photo-1584473457406-623048fc437e",
@@ -86,17 +85,52 @@ const Gallery = () => {
   const getImageUrl = (serviceId: string, imgIdx: number) => {
     const ids = serviceImages[serviceId] || serviceImages["lawn-mowing"];
     const id = ids[imgIdx % ids.length];
-    
+
     if (id.startsWith("http")) return id;
     return `https://images.unsplash.com/${id}?auto=format&fit=crop&q=80&w=800`;
   };
 
   const categories = ["Lawn Care", "Maintenance", "Specialty", "Seasonal"];
 
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      const isMobile = window.innerWidth < 1024;
+      const navHeight = isMobile ? 240 : 120; // Account for sticky navbars
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - navHeight;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
+    }
+  };
+
   return (
-    <div className="pt-32 pb-32 bg-slate-50/30">
-      <div className="container-custom">
-        <div className="text-center max-w-2xl mx-auto mb-32">
+    <div className="pt-56 pb-32 bg-white/50">
+      {/* Mobile/Tablet Fixed Navigation Bar */}
+      <div className="lg:hidden fixed top-20 left-0 w-full bg-white/95 backdrop-blur-md z-40 border-b border-slate-100 shadow-sm overflow-x-auto scrollbar-hide">
+        <div className="container-gallery py-6 flex gap-4">
+          {categories.map((category) => (
+            <button
+              key={category}
+              onClick={() =>
+                scrollToSection(
+                  `category-${category.toLowerCase().replace(/\s+/g, "-")}`,
+                )
+              }
+              className="whitespace-nowrap px-6 py-2.5 bg-white border border-slate-200 rounded-full text-xs font-black uppercase tracking-wider text-slate-900 shadow-sm active:scale-95 transition-transform"
+            >
+              {category}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="container-gallery">
+        {/* Header Section */}
+        <div className="text-center max-w-2xl mx-auto mb-20 lg:mb-24">
           <span className="text-emerald-600 font-bold text-sm uppercase tracking-widest mb-4 block underline decoration-emerald-200 underline-offset-8">
             The Portfolio
           </span>
@@ -109,66 +143,113 @@ const Gallery = () => {
           </p>
         </div>
 
-        <div className="space-y-40">
-          {categories.map((category) => {
-            const categoryServices = services.filter(
-              (s) => s.category === category,
-            );
-            return (
-              <div key={category}>
-                {/* Category Heading */}
-                <div className="flex items-center gap-6 mb-16">
-                  <h2 className="text-4xl md:text-5xl font-black text-slate-950 whitespace-nowrap uppercase tracking-tighter">
-                    {category}
-                  </h2>
-                  <div className="h-px bg-slate-200 w-full"></div>
-                </div>
-
-                {/* Subsections per Service */}
-                <div className="space-y-24">
-                  {categoryServices.map((service) => (
-                    <div
-                      key={service.id}
-                      id={service.id}
-                      className="scroll-mt-32"
-                    >
-                      <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
-                        <div className="max-w-xl">
-                          <h3 className="text-2xl font-bold text-slate-900 mb-3 flex items-center gap-3">
-                            <span className="w-2 h-8 bg-emerald-500 rounded-full"></span>
-                            {service.title}
-                          </h3>
-                          <p className="text-slate-500 text-sm italic">
-                            {service.description}
-                          </p>
-                        </div>
-                      </div>
-
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        {[0, 1, 2].map((imgIdx) => (
-                          <motion.div
-                            key={`${service.id}-${imgIdx}`}
-                            initial={{ opacity: 0, scale: 0.95 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: imgIdx * 0.1 }}
-                            className="aspect-square rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 group"
-                          >
-                            <img
-                              src={getImageUrl(service.id, imgIdx)}
-                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                              alt={`${service.title} View ${imgIdx + 1}`}
-                              loading="lazy"
-                            />
-                          </motion.div>
-                        ))}
+        <div className="flex flex-col lg:flex-row gap-8 relative">
+          {/* Sticky Sidebar Navigation (Desktop Only) */}
+          <aside className="lg:w-60 flex-shrink-0">
+            <div className="sticky top-32 space-y-6 bg-white p-6 rounded-[2rem] border border-slate-100 shadow-sm hidden lg:block">
+              <div>
+                <h4 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-6">
+                  Navigation
+                </h4>
+                <nav className="space-y-6">
+                  {categories.map((category) => (
+                    <div key={category} className="space-y-3">
+                      <button
+                        onClick={() =>
+                          scrollToSection(
+                            `category-${category.toLowerCase().replace(/\s+/g, "-")}`,
+                          )
+                        }
+                        className="text-sm font-black text-slate-900 hover:text-emerald-600 transition-colors uppercase tracking-tight"
+                      >
+                        {category}
+                      </button>
+                      <div className="pl-4 space-y-2 border-l border-slate-100">
+                        {services
+                          .filter((s) => s.category === category)
+                          .map((service) => (
+                            <button
+                              key={service.id}
+                              onClick={() =>
+                                scrollToSection(`service-${service.id}`)
+                              }
+                              className="block text-xs font-bold text-slate-400 hover:text-emerald-500 transition-colors text-left"
+                            >
+                              {service.title}
+                            </button>
+                          ))}
                       </div>
                     </div>
                   ))}
-                </div>
+                </nav>
               </div>
-            );
-          })}
+            </div>
+          </aside>
+
+          {/* Main Gallery Content */}
+          <div className="flex-grow space-y-40">
+            {categories.map((category) => {
+              const categoryServices = services.filter(
+                (s) => s.category === category,
+              );
+              const categoryId = `category-${category.toLowerCase().replace(/\s+/g, "-")}`;
+
+              return (
+                <div key={category} id={categoryId} className="scroll-mt-56 lg:scroll-mt-32">
+                  {/* Category Heading */}
+                  <div className="flex items-center gap-6 mb-16">
+                    <h2 className="text-4xl md:text-5xl font-black text-slate-950 whitespace-nowrap uppercase tracking-tighter">
+                      {category}
+                    </h2>
+                    <div className="h-px bg-slate-200 w-full"></div>
+                  </div>
+
+                  {/* Subsections per Service */}
+                  <div className="space-y-24">
+                    {categoryServices.map((service) => (
+                      <div
+                        key={service.id}
+                        id={`service-${service.id}`}
+                        className="scroll-mt-72 lg:scroll-mt-48"
+                      >
+                        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
+                          <div className="max-w-xl">
+                            <h3 className="text-2xl font-bold text-slate-900 mb-3 flex items-center gap-3">
+                              <span className="w-2 h-8 bg-emerald-500 rounded-full"></span>
+                              {service.title}
+                            </h3>
+                            <p className="text-slate-500 text-sm italic">
+                              {service.description}
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                          {[0, 1, 2].map((imgIdx) => (
+                            <motion.div
+                              key={`${service.id}-${imgIdx}`}
+                              initial={{ opacity: 0, scale: 0.95 }}
+                              whileInView={{ opacity: 1, scale: 1 }}
+                              viewport={{ once: true }}
+                              transition={{ delay: imgIdx * 0.1 }}
+                              className="aspect-square rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 group"
+                            >
+                              <img
+                                src={getImageUrl(service.id, imgIdx)}
+                                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                                alt={`${service.title} View ${imgIdx + 1}`}
+                                loading="lazy"
+                              />
+                            </motion.div>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
 
         {/* Final Contact Section */}

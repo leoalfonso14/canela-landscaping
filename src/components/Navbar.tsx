@@ -2,6 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { useState, useEffect } from "react";
+import { GALLERY_IMAGES, prefetchImages } from "../data/gallery-assets";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,6 +21,12 @@ const Navbar = () => {
     { name: "Gallery", path: "/gallery" },
     { name: "Contact", path: "/contact" },
   ];
+
+  const handlePrefetch = (path: string) => {
+    if (path === "/gallery") {
+      prefetchImages(GALLERY_IMAGES);
+    }
+  };
 
   const isHome = location.pathname === "/";
   const showAlt = scrolled || !isHome;
@@ -49,6 +56,7 @@ const Navbar = () => {
               <Link
                 key={link.path}
                 to={link.path}
+                onMouseEnter={() => handlePrefetch(link.path)}
                 className={`text-sm font-semibold transition-colors duration-200 ${
                   location.pathname === link.path
                     ? "text-emerald-500"
@@ -93,6 +101,7 @@ const Navbar = () => {
                 key={link.path}
                 to={link.path}
                 onClick={() => setIsOpen(false)}
+                onMouseEnter={() => handlePrefetch(link.path)}
                 className="text-right block px-3 py-2 text-base font-medium text-slate-700 hover:bg-emerald-50 hover:text-emerald-600 rounded-md"
               >
                 {link.name}

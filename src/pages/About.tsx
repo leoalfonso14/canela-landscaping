@@ -137,11 +137,13 @@ const About = () => {
               The Experts
             </span>
             <h2 className="text-4xl md:text-6xl font-black text-slate-950 mb-8 tracking-tight">
-              Meet Our Team.
+              Meet the Canela Family.
             </h2>
-            <p className="text-xl text-slate-500">
-              Canela Landscaping is a family-owned and operated small business,
-              managed with passion by Domingo and Nora.
+            <p className="text-xl text-slate-500 max-w-2xl mx-auto leading-relaxed">
+              At Canela Landscaping, we treat every lawn like our own. As a
+              family-owned and operated team, our passion for excellence is a
+              personal commitment from our family to yours—led with heart by
+              Domingo and Nora.
             </p>
           </motion.div>
 
