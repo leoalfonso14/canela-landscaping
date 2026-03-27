@@ -10,12 +10,12 @@ const Footer = () => {
   return (
     <footer className="bg-slate-950 text-slate-400 pt-20 pb-10">
       <div className="container-custom grid grid-cols-2 lg:grid-cols-5 gap-y-12 gap-x-8 lg:gap-x-16">
-        <div className="col-span-2 lg:col-span-2 space-y-6">
-            <img 
-              src="/logo.png" 
-              alt="Canela Landscaping & Snow Plow" 
-              className="h-16 w-auto object-contain"
-            />
+        <div className="col-span-2 lg:col-span-2 space-y-3">
+          <img
+            src="/logo-icon.png"
+            alt="Canela Landscaping & Snow Plow"
+            className="h-28 w-auto object-contain"
+          />
           <p className="text-sm leading-relaxed md:max-w-xs">
             Premium landscaping and outdoor services. We transform ordinary
             spaces into extraordinary natural masterpieces.

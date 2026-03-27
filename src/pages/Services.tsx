@@ -25,7 +25,12 @@ const Services = () => {
   return (
     <div className="pt-32 pb-32 bg-slate-50/50">
       <div className="container-custom">
-        <div className="text-center max-w-3xl mx-auto mb-20">
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="text-center max-w-3xl mx-auto mb-20"
+        >
           <span className="text-emerald-600 font-bold text-sm uppercase tracking-widest mb-4 block underline decoration-emerald-200 underline-offset-8">
             Our Expertise
           </span>
@@ -38,10 +43,15 @@ const Services = () => {
             seasonal preparation, we cover every aspect of your outdoor
             environment.
           </p>
-        </div>
+        </motion.div>
 
         {/* Filter */}
-        <div className="flex flex-wrap justify-center gap-3 md:gap-4 mb-12 md:mb-20">
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.4, duration: 1 }}
+          className="flex flex-wrap justify-center gap-3 md:gap-4 mb-12 md:mb-20"
+        >
           {categories.map((cat) => (
             <button
               key={cat}
@@ -55,7 +65,7 @@ const Services = () => {
               {cat}
             </button>
           ))}
-        </div>
+        </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredServices.map((service, idx) => (

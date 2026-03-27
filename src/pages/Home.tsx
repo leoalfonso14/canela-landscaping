@@ -1,23 +1,54 @@
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import { ArrowRight, CheckCircle2, Star, Quote } from "lucide-react";
 import { Link } from "react-router-dom";
 import ServiceCard from "../components/ServiceCard";
 import { services } from "../data/services";
 
 const Home = () => {
-  const featuredServices = services.slice(0, 3);
+  const featuredServices = [
+    services[0],  // Professional Lawn Mowing
+    services[5],  // Mulch Installation
+    services[14]  // Snow Plowing
+  ];
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+      },
+    },
+  };
+
+  const itemVariants: Variants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] },
+    },
+  };
 
   return (
     <div className="overflow-hidden">
       {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center text-white">
-        <div className="absolute inset-0">
-          <img
-            src="https://images.unsplash.com/photo-1592591544551-4903513f2f1b?auto=format&fit=crop&q=80&w=2000"
-            alt="Luxury Landscape"
+        <div className="absolute inset-0 overflow-hidden">
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
             className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-slate-900/40 backdrop-blur-[2px]" />
+            poster="https://images.unsplash.com/photo-1592591544551-4903513f2f1b?auto=format&fit=crop&q=80&w=2000"
+          >
+            <source
+              src="https://media.istockphoto.com/id/2188117475/video/wide-angle-view-of-hispanic-man-raking-soil-with-a-team-planting-a-flowerbed-in-a.mp4?s=mp4-640x640-is&k=20&c=UyEURF_PxaMKcZ7Mmnt_FAjc_UqMpztVP_zmIrbL58M="
+              type="video/mp4"
+            />
+          </video>
+          <div className="absolute inset-0 bg-slate-900/50 backdrop-blur-[1px]" />
         </div>
 
         <div className="relative container-custom text-center">
@@ -83,28 +114,54 @@ const Home = () => {
 
       {/* Trust Badges */}
       <section className="bg-slate-50 py-12 border-b border-slate-100">
-        <div className="container-custom flex flex-wrap justify-center md:justify-between items-center gap-8">
-          <div className="flex items-center gap-2 font-bold text-slate-900">
-            <Star size={24} className="text-emerald-500 fill-emerald-500" /> Rated 5 Stars
-          </div>
-          <div className="flex items-center gap-2 font-bold text-slate-900">
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="container-custom flex flex-wrap justify-center md:justify-between items-center gap-8"
+        >
+          <motion.div
+            variants={itemVariants}
+            className="flex items-center gap-2 font-bold text-slate-900 border-r border-slate-200 pr-8 last:border-0 last:pr-0"
+          >
+            <Star size={24} className="text-emerald-500 fill-emerald-500" />{" "}
+            Rated 5 Stars
+          </motion.div>
+          <motion.div
+            variants={itemVariants}
+            className="flex items-center gap-2 font-bold text-slate-900 border-r border-slate-200 pr-8 last:border-0 last:pr-0"
+          >
             <CheckCircle2 size={24} className="text-emerald-500" /> Fully
             Insured
-          </div>
-          <div className="flex items-center gap-2 font-bold text-slate-900">
+          </motion.div>
+          <motion.div
+            variants={itemVariants}
+            className="flex items-center gap-2 font-bold text-slate-900 border-r border-slate-200 pr-8 last:border-0 last:pr-0"
+          >
             <CheckCircle2 size={24} className="text-emerald-500" /> 15+ Years
             Experience
-          </div>
-          <div className="flex items-center gap-2 font-bold text-slate-900">
-            <Star size={24} className="text-emerald-500 fill-emerald-500" /> Certified Arborists
-          </div>
-        </div>
+          </motion.div>
+          <motion.div
+            variants={itemVariants}
+            className="flex items-center gap-2 font-bold text-slate-900"
+          >
+            <Star size={24} className="text-emerald-500 fill-emerald-500" />{" "}
+            Certified Arborists
+          </motion.div>
+        </motion.div>
       </section>
 
       {/* Featured Services */}
       <section className="py-32 bg-slate-100/50">
         <div className="container-custom">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-20">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="flex flex-col md:flex-row md:items-end justify-between mb-20"
+          >
             <div>
               <span className="text-emerald-600 font-bold text-sm uppercase tracking-widest mb-4 block">
                 What we do
@@ -120,7 +177,7 @@ const Home = () => {
             >
               View All 15+ Services <ArrowRight size={20} />
             </Link>
-          </div>
+          </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {featuredServices.map((service, idx) => (
@@ -133,23 +190,43 @@ const Home = () => {
       {/* Why Choose Us */}
       <section className="py-32 bg-slate-50/50">
         <div className="container-custom grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-          <div className="relative">
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1 }}
+            className="relative group"
+          >
             <div className="aspect-[4/5] rounded-[2rem] overflow-hidden shadow-2xl">
-              <img
-                src="https://images.unsplash.com/photo-1558905617-1545cf21a97c?auto=format&fit=crop&q=80&w=1000"
+              <motion.img
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.6 }}
+                src="https://dennis7dees.com/wp-content/uploads/2021/08/modern-woodland-9.jpg"
                 className="w-full h-full object-cover"
                 alt="Our Work"
               />
             </div>
-            <div className="absolute -bottom-10 -right-10 bg-emerald-600 text-white p-12 rounded-[2rem] hidden md:block shadow-2xl">
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0 }}
+              whileInView={{ scale: 1, opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.5, duration: 0.8 }}
+              className="absolute -bottom-10 -right-10 bg-emerald-600 text-white p-12 rounded-[2rem] hidden md:block shadow-2xl"
+            >
               <span className="text-5xl font-black block mb-2">1k+</span>
               <span className="text-sm font-bold opacity-80 uppercase tracking-widest">
                 Properties Restored
               </span>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
-          <div className="space-y-10">
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1 }}
+            className="space-y-10"
+          >
             <div>
               <span className="text-emerald-600 font-bold text-sm uppercase tracking-widest mb-4 block">
                 The Canela Difference
@@ -174,8 +251,15 @@ const Home = () => {
                   desc: "We treat every garden as if it were our own, with attention to every detail.",
                 },
               ].map((item, idx) => (
-                <div key={idx} className="flex gap-6">
-                  <div className="bg-emerald-100 text-emerald-600 p-3 rounded-2xl h-fit">
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: idx * 0.2 }}
+                  className="flex gap-6 group"
+                >
+                  <div className="bg-emerald-100 text-emerald-600 p-3 rounded-2xl h-fit group-hover:bg-emerald-600 group-hover:text-white transition-colors duration-300">
                     <CheckCircle2 size={24} />
                   </div>
                   <div>
@@ -186,19 +270,25 @@ const Home = () => {
                       {item.desc}
                     </p>
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* Testimonials */}
       <section className="py-32 bg-slate-950 text-white relative overflow-hidden">
-        <div className="absolute top-0 right-0 opacity-10 pointer-events-none">
+        <div className="absolute top-0 right-0 opacity-10 pointer-events-none text-emerald-900">
           <Quote size={400} />
         </div>
-        <div className="max-w-4xl mx-auto px-4 text-center relative">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1 }}
+          className="max-w-4xl mx-auto px-4 text-center relative"
+        >
           <Quote className="text-emerald-500 mb-8 mx-auto" size={48} />
           <p className="text-3xl md:text-4xl font-black italic leading-snug mb-12">
             "Canela Landscaping completely transformed our backyard. Their
@@ -213,12 +303,18 @@ const Home = () => {
               Homeowners, Cleveland, Ohio
             </span>
           </div>
-        </div>
+        </motion.div>
       </section>
 
       {/* Final CTA */}
       <section className="py-40 bg-slate-50">
-        <div className="max-w-4xl mx-auto px-4">
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="max-w-4xl mx-auto px-4"
+        >
           <h2 className="text-4xl md:text-6xl font-black text-slate-950 mb-8 tracking-tight">
             Ready to start your <br />
             <span className="text-emerald-600 italic">
@@ -235,7 +331,7 @@ const Home = () => {
           >
             Start My Transformation
           </Link>
-        </div>
+        </motion.div>
       </section>
     </div>
   );
