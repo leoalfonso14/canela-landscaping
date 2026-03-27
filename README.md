@@ -1,73 +1,73 @@
-# React + TypeScript + Vite
+# Canela Landscaping & Snow Plow
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A premium, multi-page landscaping website built for **Domingo Canela** in Cleveland, Ohio. This project focuses on high-end aesthetics, smooth animations, and a seamless user experience across all devices.
 
-Currently, two official plugins are available:
+## 🚀 Tech Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Framework**: React 18 (Vite)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **Animations**: Framer Motion
+- **Icons**: Lucide React
+- **Routing**: React Router v6
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🛠️ Owner Action Required (Handover Steps)
 
-## Expanding the ESLint configuration
+To move this project to production and enable backend features (like contact form lead storage), please follow these steps.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+> [!IMPORTANT]
+> For security, please use the "Invite" or "Team Member" features on these platforms rather than sharing your primary account password.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### 1. GitHub (Code Repository)
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- **Create an Account**: If you don't have one, sign up at [github.com](https://github.com).
+- **Create an Organization**: Create an organization for "Canela Landscaping".
+- **Invite Admin**: Add **@leoalfonso14** to your organization and grant **Owner/Admin** permissions. This allows the developer to push the code and manage the repository.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### 2. Vercel (Hosting & Deployment)
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- **Create an Account**: Sign up at [vercel.com](https://vercel.com) using your GitHub account.
+- **Invite Developer**: Go to your Team settings (if on a Pro plan) or share the project access by adding **@leoalfonso14** as a member/collaborator.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### 3. Supabase (Database & Contact Leads)
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- **Create an Account**: Sign up at [supabase.com](https://supabase.com).
+- **Create a Project**: Start a new project named "Canela Landscaping".
+- **Invite Admin**: Go to **Settings > Team** and invite **@leoalfonso14** via email as an **Owner** or **Administrator**.
+
+---
+
+## 💻 Local Development
+
+1. **Install Dependencies**:
+
+   ```bash
+   npm install
+   ```
+
+2. **Run Development Server**:
+
+   ```bash
+   npm run dev
+   ```
+
+3. **Build for Production**:
+   ```bash
+   npm run build
+   ```
+
+---
+
+## 📁 Project Structure
+
+- `/src/components`: Reusable UI components (Navbar, Footer, ServiceCards).
+- `/src/pages`: Page-level components (Home, About, Services, Gallery, Contact).
+- `/src/data`: Centralized data store for services and project information.
+- `/src/config`: Global constants (Phone, Email, Service Area).
+- `/src/assets`: Static images and global styles.
+
+---
+
+**Developed with precision for Canela Landscaping.**

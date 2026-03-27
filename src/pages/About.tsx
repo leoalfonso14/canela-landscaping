@@ -39,38 +39,42 @@ const About = () => {
           </div>
         </div>
 
-        {/* Mission/Values */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-40">
-          {[
-            {
-              icon: <Target className="text-emerald-600" />,
-              title: "Our Mission",
-              desc: "To elevate the standard of residential landscaping through innovation, reliability, and artistic design.",
-            },
-            {
-              icon: <ShieldCheck className="text-emerald-600" />,
-              title: "Our Promise",
-              desc: "Full insurance, certified technicians, and a satisfaction guarantee on every single project we undertake.",
-            },
-            {
-              icon: <Users className="text-emerald-600" />,
-              title: "Our Team",
-              desc: "A dedicated group of horticultural experts, designers, and maintenance pros who love what they do.",
-            },
-          ].map((item, idx) => (
-            <div
-              key={idx}
-              className="bg-white p-12 rounded-[2.5rem] border border-slate-100 shadow-sm"
-            >
-              <div className="bg-white w-16 h-16 rounded-2xl flex items-center justify-center mb-8 shadow-sm">
-                {item.icon}
-              </div>
-              <h3 className="text-2xl font-bold text-slate-900 mb-4">
-                {item.title}
-              </h3>
-              <p className="text-slate-500 leading-relaxed">{item.desc}</p>
+        {/* Mission/Values Redesign */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-40">
+          {/* Mission - Dark Slate */}
+          <div className="bg-slate-900 p-12 rounded-[3rem] shadow-2xl relative overflow-hidden group hover:-translate-y-2 transition-all duration-500">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-600/10 rounded-full -mr-16 -mt-16 group-hover:bg-emerald-600/20 transition-all" />
+            <div className="bg-white/10 w-16 h-16 rounded-2xl flex items-center justify-center mb-8 backdrop-blur-sm border border-white/10 group-hover:scale-110 transition-transform duration-500">
+              <Target className="text-emerald-400" size={32} />
             </div>
-          ))}
+            <h3 className="text-3xl font-black text-white mb-6 tracking-tight">Our Mission</h3>
+            <p className="text-slate-400 leading-relaxed text-lg italic">
+              "To elevate the standard of residential landscaping through innovation, reliability, and artistic design."
+            </p>
+          </div>
+
+          {/* Promise - Emerald Highlight */}
+          <div className="bg-emerald-600 p-12 rounded-[3rem] shadow-2xl shadow-emerald-600/20 relative overflow-hidden group hover:-translate-y-4 transition-all duration-500 md:-mt-8 md:mb-8">
+            <div className="absolute inset-0 bg-[linear-gradient(45deg,rgba(0,0,0,0.1),transparent)]" />
+            <div className="bg-white w-16 h-16 rounded-2xl flex items-center justify-center mb-8 shadow-inner group-hover:rotate-12 transition-transform duration-500">
+              <ShieldCheck className="text-emerald-600" size={32} />
+            </div>
+            <h3 className="text-3xl font-black text-white mb-6 tracking-tight">Our Promise</h3>
+            <p className="text-emerald-50 leading-relaxed text-lg font-medium">
+              Full insurance, certified technicians, and a satisfaction guarantee on every single project we undertake.
+            </p>
+          </div>
+
+          <a href="#team" className="block bg-white p-12 rounded-[3rem] border border-slate-100 shadow-xl relative overflow-hidden group hover:-translate-y-2 hover:shadow-2xl transition-all duration-500 cursor-pointer">
+            <div className="absolute bottom-0 right-0 w-32 h-32 bg-slate-50 rounded-full -mr-16 -mb-16" />
+            <div className="bg-emerald-50 w-16 h-16 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-emerald-600 transition-all duration-500">
+              <Users className="text-emerald-600 group-hover:text-white transition-colors duration-500" size={32} />
+            </div>
+            <h3 className="text-3xl font-black text-slate-900 mb-6 tracking-tight">Our Team</h3>
+            <p className="text-slate-500 leading-relaxed text-lg">
+              A dedicated group of horticultural experts, designers, and maintenance pros who love what they do.
+            </p>
+          </a>
         </div>
 
         {/* Team Section */}
@@ -83,32 +87,22 @@ const About = () => {
               Meet Our Team.
             </h2>
             <p className="text-xl text-slate-500">
-              The dedicated professionals behind many beautiful landscape in the
-              Cleveland area.
+              Canela Landscaping is a family-owned and operated small business,
+              managed with passion by Domingo and Nora.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-4xl mx-auto">
             {[
               {
                 name: "Domingo Canela",
-                role: "Founder & Head Designer",
-                img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=400",
+                role: "Founder & Master Craftsman",
+                img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=600",
               },
               {
-                name: "Marcus Chen",
-                role: "Lead Horticulturist",
-                img: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=400",
-              },
-              {
-                name: "Sarah Miller",
-                role: "Operations Manager",
-                img: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=400",
-              },
-              {
-                name: "Kevin O'Brien",
-                role: "Master Mason",
-                img: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=400",
+                name: "Nora Canela",
+                role: "Co-Founder & Operations",
+                img: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=600",
               },
             ].map((member, idx) => (
               <div key={idx} className="relative">

@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Leaf, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { useState, useEffect } from "react";
 
 const Navbar = () => {
@@ -30,15 +30,12 @@ const Navbar = () => {
     >
       <div className="container-custom">
         <div className="flex justify-between items-center h-16">
-          <Link to="/" className="flex items-center space-x-2">
-            <Leaf
-              className={`h-8 w-8 ${showAlt ? "text-emerald-600" : "text-white"}`}
+          <Link to="/" className="flex items-center">
+            <img 
+              src="/logo.png" 
+              alt="Canela Landscaping & Snow Plow" 
+              className="h-12 md:h-16 w-auto object-contain py-1"
             />
-            <span
-              className={`text-2xl font-bold tracking-tight ${showAlt ? "text-slate-900" : "text-white"}`}
-            >
-              Canela
-            </span>
           </Link>
 
           {/* Desktop */}

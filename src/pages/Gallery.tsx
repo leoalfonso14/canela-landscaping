@@ -93,9 +93,6 @@ const Gallery = () => {
                             {service.description}
                           </p>
                         </div>
-                        <span className="text-xs font-bold text-slate-300 uppercase tracking-[0.2em]">
-                          Service Documentation
-                        </span>
                       </div>
 
                       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

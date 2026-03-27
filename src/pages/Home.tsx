@@ -26,7 +26,7 @@ const Home = () => {
             animate={{ opacity: 1, y: 0 }}
             className="inline-block px-4 py-1 rounded-full bg-emerald-500/20 backdrop-blur-md border border-emerald-500/30 text-emerald-400 font-bold text-xs uppercase tracking-widest mb-6"
           >
-            Premium Landscaping & Design
+            Premium Landscaping
           </motion.span>
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
@@ -34,9 +34,9 @@ const Home = () => {
             transition={{ delay: 0.2 }}
             className="text-5xl md:text-8xl font-black mb-8 leading-tight tracking-tight"
           >
-            Nature, <br />
-            <span className="text-emerald-400 italic">
-              Masterfully Refined.
+            Expert Care for <br />
+            <span className="text-brand-secondary italic">
+              Your Outdoor Home.
             </span>
           </motion.h1>
           <motion.p
@@ -83,20 +83,20 @@ const Home = () => {
 
       {/* Trust Badges */}
       <section className="bg-slate-50 py-12 border-b border-slate-100">
-        <div className="container-custom flex flex-wrap justify-center md:justify-between items-center gap-8 opacity-60">
-          <div className="flex items-center gap-2 font-bold text-slate-400">
-            <Star size={24} className="text-emerald-500" /> Rated 5 Stars
+        <div className="container-custom flex flex-wrap justify-center md:justify-between items-center gap-8">
+          <div className="flex items-center gap-2 font-bold text-slate-900">
+            <Star size={24} className="text-emerald-500 fill-emerald-500" /> Rated 5 Stars
           </div>
-          <div className="flex items-center gap-2 font-bold text-slate-400">
+          <div className="flex items-center gap-2 font-bold text-slate-900">
             <CheckCircle2 size={24} className="text-emerald-500" /> Fully
             Insured
           </div>
-          <div className="flex items-center gap-2 font-bold text-slate-400">
+          <div className="flex items-center gap-2 font-bold text-slate-900">
             <CheckCircle2 size={24} className="text-emerald-500" /> 15+ Years
             Experience
           </div>
-          <div className="flex items-center gap-2 font-bold text-slate-400">
-            <Star size={24} className="text-emerald-500" /> Certified Arborists
+          <div className="flex items-center gap-2 font-bold text-slate-900">
+            <Star size={24} className="text-emerald-500 fill-emerald-500" /> Certified Arborists
           </div>
         </div>
       </section>

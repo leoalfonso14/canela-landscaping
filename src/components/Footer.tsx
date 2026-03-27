@@ -1,26 +1,69 @@
-import { Leaf, Phone, Mail, MapPin, Share2 } from "lucide-react";
+import { Phone, Mail, MapPin } from "lucide-react";
 import { Link } from "react-router-dom";
-import { PHONE_NUMBER, EMAIL_ADDRESS, LOCATION_TEXT } from "../config/constants";
+import {
+  PHONE_NUMBER,
+  EMAIL_ADDRESS,
+  LOCATION_TEXT,
+} from "../config/constants";
 
 const Footer = () => {
   return (
     <footer className="bg-slate-950 text-slate-400 pt-20 pb-10">
-      <div className="container-custom grid grid-cols-2 lg:grid-cols-5 gap-12 lg:gap-x-24">
+      <div className="container-custom grid grid-cols-2 lg:grid-cols-5 gap-y-12 gap-x-8 lg:gap-x-16">
         <div className="col-span-2 lg:col-span-2 space-y-6">
-          <div className="flex items-center space-x-2 text-white">
-            <Leaf className="h-8 w-8 text-emerald-500" />
-            <span className="text-2xl font-bold tracking-tight">Canela</span>
-          </div>
-          <p className="text-sm leading-relaxed max-w-xs">
-            Premium landscaping and outdoor design services. We transform
-            ordinary spaces into extraordinary natural masterpieces.
+            <img 
+              src="/logo.png" 
+              alt="Canela Landscaping & Snow Plow" 
+              className="h-16 w-auto object-contain"
+            />
+          <p className="text-sm leading-relaxed md:max-w-xs">
+            Premium landscaping and outdoor services. We transform ordinary
+            spaces into extraordinary natural masterpieces.
           </p>
-          <div className="flex space-x-4">
-            <a href="#" className="hover:text-emerald-500 transition-colors">
-              <Share2 size={20} />
+          <div className="flex space-x-4 text-emerald-500">
+            <a
+              href="https://facebook.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-white transition-colors"
+              aria-label="Facebook"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+              </svg>
             </a>
-            <a href="#" className="hover:text-emerald-500 transition-colors">
-              <Share2 size={20} />
+            <a
+              href="https://instagram.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-white transition-colors"
+              aria-label="Instagram"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+              </svg>
             </a>
           </div>
         </div>
@@ -110,7 +153,7 @@ const Footer = () => {
             </li>
             <li className="flex items-start space-x-3">
               <Mail size={18} className="text-emerald-500 shrink-0 mt-0.5" />
-              <span>{EMAIL_ADDRESS}</span>
+              <span className="break-all">{EMAIL_ADDRESS}</span>
             </li>
             <li className="flex items-start space-x-3">
               <MapPin size={18} className="text-emerald-500 shrink-0 mt-0.5" />
@@ -122,7 +165,7 @@ const Footer = () => {
 
       <div className="container-custom mt-20 pt-8 border-t border-slate-900 text-center text-xs">
         <p>
-          &copy; {new Date().getFullYear()} Canela Landscaping & Design. All
+          &copy; {new Date().getFullYear()} Canela Landscaping & Snow Plow. All
           rights reserved.
         </p>
       </div>
