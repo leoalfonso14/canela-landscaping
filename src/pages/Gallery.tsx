@@ -1,98 +1,73 @@
+import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { services } from "../data/services";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Gallery = () => {
-  // Service-specific image portfolios (using placeholders as requested)
+  // Service-specific image portfolios (completely local project photos)
   const serviceImages: Record<string, string[]> = {
     "lawn-mowing": [
-      "photo-1558905617-1545cf21a97c",
-      "photo-1592419044706-39796d40f98c",
-      "photo-1600607687920-4e2a09cf159d",
+      "/images/lawn-mowing-1.webp",
+      "/images/lawn-mowing-2.webp",
+      "/images/lawn-mowing-3.webp",
     ],
     edges: [
-      "photo-1598901861713-54ad16a7e70e",
-      "photo-1584473457406-623048fc437e",
-      "photo-1558905617-1545cf21a97c",
+      "/images/edges-1.webp",
+      "/images/mulch-2.webp",
+      "/images/mulch-1.webp",
     ],
     "lawn-maintenance": [
-      "photo-1466781783364-391eaf53cf39",
-      "photo-1557428807-6ba07633276b",
-      "photo-1590682847059-69d74259727a",
+      "/images/lawn-mowing-1.webp",
+      "/images/bush-trimming-1.webp",
+      "/images/lawn-mowing-3.webp",
     ],
     "bush-trimming": [
-      "photo-1621932953986-15fcf084da0f",
-      "photo-1585320806297-9794b3e4eeae",
-      "photo-1466781783364-391eaf53cf39",
+      "/images/bush-trimming-1.webp",
+      "/images/bush-trimming-2.webp",
+      "/images/bush-trimming-3.webp",
     ],
     weeds: [
-      "photo-1590682847059-69d74259727a",
-      "photo-1600607687920-4e2a09cf159d",
-      "photo-1600585154340-be6161a56a0c",
+      "/images/bush-trimming-2.webp",
+      "/images/yard-cleanup-1.webp",
+      "/images/lawn-mowing-2.webp",
     ],
     mulch: [
-      "photo-1541888941295-65c82860a480",
-      "photo-1584473457406-623048fc437e",
-      "photo-1558905617-1545cf21a97c",
+      "/images/mulch-1.webp",
+      "/images/mulch-2.webp",
+      "/images/mulch-3.webp",
     ],
-    "top-soil": [
-      "photo-1592419044706-39796d40f98c",
-      "photo-1598901861713-54ad16a7e70e",
-      "photo-1600607687920-4e2a09cf159d",
-    ],
-    reseeding: [
-      "photo-1466781783364-391eaf53cf39",
-      "photo-1557428807-6ba07633276b",
-      "photo-1585320806297-9794b3e4eeae",
-    ],
+    "top-soil": ["/images/mulch-3.webp", "/images/lawn-mowing-3.webp"],
+    reseeding: ["/images/lawn-mowing-4.webp", "/images/bush-trimming-3.webp"],
     "storm-cleanup": [
-      "photo-1418985991508-e47386d96a71",
-      "photo-1478131143081-80f7f84ca84c",
-      "photo-1517299321609-52687d1bc55c",
+      "/images/yard-cleanup-1.webp",
+      "/images/bush-trimming-1.webp",
+      "/images/lawn-mowing-1.webp",
     ],
     "yard-cleanup": [
-      "photo-1466781783364-391eaf53cf39",
-      "photo-1590682847059-69d74259727a",
-      "photo-1621932953986-15fcf084da0f",
+      "/images/yard-cleanup-1.webp",
+      "/images/yard-cleanup-2.webp",
+      "/images/bush-trimming-4.webp",
     ],
-    "leaf-cleanup": [
-      "photo-1517299321609-52687d1bc55c",
-      "photo-1418985991508-e47386d96a71",
-      "photo-1478131143081-80f7f84ca84c",
-    ],
+    "leaf-cleanup": ["/images/yard-cleanup-2.webp", "/images/mulch-4.webp"],
     patios: [
-      "photo-1584473457406-623048fc437e",
-      "photo-1558905617-1545cf21a97c",
-      "photo-1592419044706-39796d40f98c",
+      "/images/edges-1.webp",
+      "/images/bush-trimming-4.webp",
+      "/images/mulch-2.webp",
     ],
-    "seasonal-cleanup": [
-      "photo-1483921020237-2ff51e8e4b22",
-      "photo-1521401830884-6c03c1c87ebb",
-      "photo-1418985991508-e47386d96a71",
-    ],
+    "seasonal-cleanup": ["/images/lawn-mowing-3.webp"],
     gravel: [
-      "photo-1600585154340-be6161a56a0c",
-      "photo-1541888941295-65c82860a480",
-      "photo-1584473457406-623048fc437e",
+      "/images/yard-cleanup-1.webp",
+      "/images/bush-trimming-2.webp",
+      "/images/lawn-mowing-2.webp",
     ],
-    "snow-plow": [
-      "https://i5.walmartimages.com/seo/Ktaxon-29x18in-Adjustable-T-Handle-Snow-Plow-with-Wheels-Heavy-Duty-Manual-Snow-Shovel-for-Driveway-Sidewalk-Blue-Black_6685080c-88bb-461d-a68f-3a14f63c5255.9959cd2f209a96c13c87eca8ad640a76.jpeg",
-      "https://i.ytimg.com/vi/YOLNNAxvqy0/maxresdefault.jpg",
-      "https://i.ytimg.com/vi/jjcx70og7to/maxresdefault.jpg",
-    ],
-  };
-
-  const getImageUrl = (serviceId: string, imgIdx: number) => {
-    const ids = serviceImages[serviceId] || serviceImages["lawn-mowing"];
-    const id = ids[imgIdx % ids.length];
-
-    if (id.startsWith("http")) return id;
-    return `https://images.unsplash.com/${id}?auto=format&fit=crop&q=80&w=800`;
+    "snow-plow": ["/images/snow-plowing-1.webp"],
   };
 
   const categories = ["Lawn Care", "Maintenance", "Specialty", "Seasonal"];
 
-  const scrollToSection = (id: string) => {
+  const location = useLocation();
+
+  const scrollToSection = (id: string, updateHash = true) => {
     const element = document.getElementById(id);
     if (element) {
       const isMobile = window.innerWidth < 1024;
@@ -104,8 +79,23 @@ const Gallery = () => {
         top: offsetPosition,
         behavior: "smooth",
       });
+
+      if (updateHash) {
+        window.history.replaceState(null, "", `#${id}`);
+      }
     }
   };
+
+  useEffect(() => {
+    if (location.hash) {
+      // Small timeout to ensure DOM is fully ready and images are loading
+      const timer = setTimeout(() => {
+        const id = location.hash.replace("#", "");
+        scrollToSection(id, false);
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [location.hash]);
 
   return (
     <div className="pt-56 pb-32 bg-white/50">
@@ -195,7 +185,11 @@ const Gallery = () => {
               const categoryId = `category-${category.toLowerCase().replace(/\s+/g, "-")}`;
 
               return (
-                <div key={category} id={categoryId} className="scroll-mt-56 lg:scroll-mt-32">
+                <div
+                  key={category}
+                  id={categoryId}
+                  className="scroll-mt-56 lg:scroll-mt-32"
+                >
                   {/* Category Heading */}
                   <div className="flex items-center gap-6 mb-16">
                     <h2 className="text-4xl md:text-5xl font-black text-slate-950 whitespace-nowrap uppercase tracking-tighter">
@@ -225,23 +219,30 @@ const Gallery = () => {
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                          {[0, 1, 2].map((imgIdx) => (
-                            <motion.div
-                              key={`${service.id}-${imgIdx}`}
-                              initial={{ opacity: 0, scale: 0.95 }}
-                              whileInView={{ opacity: 1, scale: 1 }}
-                              viewport={{ once: true }}
-                              transition={{ delay: imgIdx * 0.1 }}
-                              className="aspect-square rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 group"
-                            >
-                              <img
-                                src={getImageUrl(service.id, imgIdx)}
-                                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                                alt={`${service.title} View ${imgIdx + 1}`}
-                                loading="lazy"
-                              />
-                            </motion.div>
-                          ))}
+                          {(serviceImages[service.id] || []).map(
+                            (imgUrl, imgIdx) => (
+                              <motion.div
+                                key={`${service.id}-${imgIdx}`}
+                                initial={{ opacity: 0, scale: 0.95 }}
+                                whileInView={{ opacity: 1, scale: 1 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: imgIdx * 0.1 }}
+                                className="aspect-square rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 group"
+                              >
+                                <img
+                                  src={
+                                    imgUrl.startsWith("http") ||
+                                    imgUrl.startsWith("/images/")
+                                      ? imgUrl
+                                      : `https://images.unsplash.com/${imgUrl}?auto=format&fit=crop&q=80&w=800`
+                                  }
+                                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                                  alt={`${service.title} View ${imgIdx + 1}`}
+                                  loading="lazy"
+                                />
+                              </motion.div>
+                            ),
+                          )}
                         </div>
                       </div>
                     ))}
