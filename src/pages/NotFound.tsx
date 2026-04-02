@@ -1,8 +1,11 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Home, ArrowLeft } from "lucide-react";
+import { useTranslation, Trans } from "react-i18next";
 
 const NotFound = () => {
+  const { t } = useTranslation();
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-slate-50 px-4 overflow-hidden relative">
       {/* Background Decor */}
@@ -20,11 +23,13 @@ const NotFound = () => {
             404
           </div>
           <h1 className="text-4xl md:text-6xl font-black text-slate-900 mb-6 tracking-tight">
-            Oops! This path is <br />
-            <span className="text-emerald-600 italic">a bit overgrown.</span>
+            <Trans i18nKey="notFound.title">
+              Oops! This path is <br />
+              <span className="text-emerald-600 italic">a bit overgrown.</span>
+            </Trans>
           </h1>
           <p className="text-xl text-slate-500 max-w-md mx-auto leading-relaxed">
-            The page you're looking for doesn't exist or has been moved to a new landscape.
+            {t("notFound.subtitle")}
           </p>
         </motion.div>
 
@@ -39,14 +44,14 @@ const NotFound = () => {
             className="flex items-center gap-2 bg-emerald-600 text-white px-8 py-4 rounded-full font-bold text-lg shadow-xl shadow-emerald-600/20 hover:bg-emerald-700 transition-all hover:scale-105"
           >
             <Home size={20} />
-            Back to Home
+            {t("notFound.backHome")}
           </Link>
           <button
             onClick={() => window.history.back()}
             className="flex items-center gap-2 text-slate-600 font-bold hover:text-emerald-600 transition-colors"
           >
             <ArrowLeft size={20} />
-            Go Back
+            {t("notFound.goBack")}
           </button>
         </motion.div>
       </div>

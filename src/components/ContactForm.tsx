@@ -1,15 +1,48 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Send, CheckCircle } from 'lucide-react';
+import { Send, CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
+import { submitContactForm } from '../supabase/queries';
 
 const ContactForm = () => {
+  const { t } = useTranslation();
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    service: 'Lawn Maintenance',
+    message: ''
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
-    // Simulate a delay
-    setTimeout(() => setSubmitted(false), 5000);
+    setIsSubmitting(true);
+    setError(null);
+
+    try {
+      await submitContactForm(formData);
+      setSubmitted(true);
+      
+      // Reset form after a few seconds
+      setTimeout(() => {
+        setSubmitted(false);
+        setFormData({ name: '', email: '', service: 'Lawn Maintenance', message: '' });
+      }, 5000);
+
+    } catch (err: unknown) {
+      console.error("Submission error:", err);
+      const errorMessage = err instanceof Error ? err.message : t("contact.form.error", { defaultValue: "Something went wrong. Please try again or call us." });
+      setError(errorMessage);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (submitted) {
@@ -20,9 +53,9 @@ const ContactForm = () => {
         className="bg-emerald-50 rounded-3xl p-12 text-center flex flex-col items-center justify-center min-h-[500px]"
       >
         <CheckCircle size={64} className="text-emerald-600 mb-6" />
-        <h3 className="text-3xl font-bold text-slate-900 mb-4">Inquiry Received!</h3>
+        <h3 className="text-3xl font-bold text-slate-900 mb-4">{t("contact.form.success")}</h3>
         <p className="text-slate-600 max-w-sm">
-          Thank you for reaching out to Canela Landscaping. Our team will get back to you within 24 hours.
+          {t("contact.info.email.reply")}
         </p>
       </motion.div>
     );
@@ -30,43 +63,69 @@ const ContactForm = () => {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
+      {error && (
+        <motion.div 
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="bg-red-50 text-red-600 p-4 rounded-2xl flex items-start gap-3 text-sm font-medium border border-red-100"
+        >
+          <AlertCircle size={20} className="shrink-0 mt-0.5" />
+          <p>{error}</p>
+        </motion.div>
+      )}
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
-          <label className="block text-sm font-bold text-slate-700 mb-2">Full Name</label>
+          <label className="block text-sm font-bold text-slate-700 mb-2">{t("contact.form.labels.name")}</label>
           <input 
             required
             type="text" 
-            placeholder="John Doe"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            placeholder={t("contact.form.placeholders.name")}
             className="w-full px-6 py-4 rounded-2xl bg-slate-50 border border-slate-200 focus:outline-none focus:border-emerald-500 transition-colors"
           />
         </div>
         <div>
-          <label className="block text-sm font-bold text-slate-700 mb-2">Email Address</label>
+          <label className="block text-sm font-bold text-slate-700 mb-2">{t("contact.form.labels.email")}</label>
           <input 
             required
             type="email" 
-            placeholder="john@example.com"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            placeholder={t("contact.form.placeholders.email")}
             className="w-full px-6 py-4 rounded-2xl bg-slate-50 border border-slate-200 focus:outline-none focus:border-emerald-500 transition-colors"
           />
         </div>
       </div>
       
       <div>
-        <label className="block text-sm font-bold text-slate-700 mb-2">Service Interested In</label>
-        <select className="w-full px-6 py-4 rounded-2xl bg-slate-50 border border-slate-200 focus:outline-none focus:border-emerald-500 transition-colors appearance-none">
-          <option>Lawn Maintenance</option>
-          <option>Garden Cleanup</option>
-          <option>Patio Repair</option>
-          <option>Snow Removal</option>
-          <option>Other / Multiple</option>
+        <label className="block text-sm font-bold text-slate-700 mb-2">{t("contact.form.labels.service")}</label>
+        <select 
+          name="service"
+          value={formData.service}
+          onChange={handleChange}
+          className="w-full px-6 py-4 rounded-2xl bg-slate-50 border border-slate-200 focus:outline-none focus:border-emerald-500 transition-colors appearance-none"
+        >
+          <option value="Lawn Maintenance">{t("services.lawn-maintenance.title")}</option>
+          <option value="Garden Cleanup">{t("services.yard-cleanup.title")}</option>
+          <option value="Patio Repair">{t("services.patios.title")}</option>
+          <option value="Snow Removal">{t("services.snow-plow.title")}</option>
+          <option value="Other / Multiple">{t("contact.form.placeholders.service")}</option>
         </select>
       </div>
 
       <div>
-        <label className="block text-sm font-bold text-slate-700 mb-2">Tell us about your project</label>
+        <label className="block text-sm font-bold text-slate-700 mb-2">{t("contact.form.labels.message")}</label>
         <textarea 
+          required
+          name="message"
+          value={formData.message}
+          onChange={handleChange}
           rows={6}
-          placeholder="I need help with my backyard..."
+          placeholder={t("contact.form.placeholders.message")}
           className="w-full px-6 py-4 rounded-2xl bg-slate-50 border border-slate-200 focus:outline-none focus:border-emerald-500 transition-colors resize-none"
         ></textarea>
       </div>
@@ -75,13 +134,15 @@ const ContactForm = () => {
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
         type="submit"
-        className="w-full bg-emerald-600 text-white font-bold py-5 rounded-2xl shadow-xl hover:bg-emerald-700 flex items-center justify-center space-x-3 transition-colors"
+        disabled={isSubmitting}
+        className="w-full bg-emerald-600 text-white font-bold py-5 rounded-2xl shadow-xl hover:bg-emerald-700 disabled:opacity-70 disabled:hover:scale-100 flex items-center justify-center space-x-3 transition-colors"
       >
-        <span>Submit Inquiry</span>
-        <Send size={18} />
+        <span>{isSubmitting ? t("contact.form.sending") : t("contact.form.button")}</span>
+        {isSubmitting ? <Loader2 size={18} className="animate-spin" /> : <Send size={18} />}
       </motion.button>
     </form>
   );
 };
 
 export default ContactForm;
+

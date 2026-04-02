@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Lock, Mail, AlertCircle, Loader2, ArrowRight } from 'lucide-react';
-import { supabase } from '../lib/supabase';
+import { signIn } from '../supabase/queries';
 
 const AdminLogin = () => {
   const [email, setEmail] = useState('');
@@ -17,12 +17,7 @@ const AdminLogin = () => {
     setError(null);
 
     try {
-      const { error: authError } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
-
-      if (authError) throw authError;
+      await signIn(email, password);
       navigate('/admin');
     } catch (err: unknown) {
       const errorMessage = err instanceof Error ? err.message : 'Failed to sign in';

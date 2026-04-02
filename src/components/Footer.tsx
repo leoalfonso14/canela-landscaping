@@ -1,5 +1,6 @@
 import { Phone, Mail, MapPin } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import {
   PHONE_NUMBER,
   EMAIL_ADDRESS,
@@ -7,8 +8,10 @@ import {
 } from "../config/constants";
 
 const Footer = () => {
+  const { t } = useTranslation();
+
   return (
-    <footer className="bg-slate-950 text-slate-400 pt-20 pb-10">
+    <footer className="bg-slate-950 text-slate-400 pt-20 pb-12">
       <div className="container-custom grid grid-cols-2 lg:grid-cols-5 gap-y-12 gap-x-8 lg:gap-x-16">
         <div className="col-span-2 lg:col-span-2 space-y-3">
           <img
@@ -17,8 +20,7 @@ const Footer = () => {
             className="h-28 w-auto object-contain"
           />
           <p className="text-sm leading-relaxed md:max-w-xs">
-            Premium landscaping and outdoor services. We transform ordinary
-            spaces into extraordinary natural masterpieces.
+            {t("footer.description")}
           </p>
           <div className="flex space-x-4 text-emerald-500">
             <a
@@ -35,9 +37,9 @@ const Footer = () => {
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               >
                 <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
               </svg>
@@ -56,9 +58,9 @@ const Footer = () => {
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               >
                 <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
                 <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
@@ -69,14 +71,14 @@ const Footer = () => {
         </div>
 
         <div>
-          <h4 className="text-white font-bold mb-6">Quick Links</h4>
+          <h4 className="text-white font-bold mb-6">{t("footer.quickLinks")}</h4>
           <ul className="space-y-4 text-sm">
             <li>
               <Link
                 to="/services"
                 className="hover:text-emerald-500 transition-colors"
               >
-                Our Services
+                {t("footer.links.ourServices")}
               </Link>
             </li>
             <li>
@@ -84,7 +86,7 @@ const Footer = () => {
                 to="/gallery"
                 className="hover:text-emerald-500 transition-colors"
               >
-                Project Gallery
+                {t("footer.links.projectGallery")}
               </Link>
             </li>
             <li>
@@ -92,7 +94,7 @@ const Footer = () => {
                 to="/about"
                 className="hover:text-emerald-500 transition-colors"
               >
-                About Us
+                {t("footer.links.aboutUs")}
               </Link>
             </li>
             <li>
@@ -100,21 +102,21 @@ const Footer = () => {
                 to="/contact"
                 className="hover:text-emerald-500 transition-colors"
               >
-                Free Quote
+                {t("footer.links.freeQuote")}
               </Link>
             </li>
           </ul>
         </div>
 
         <div>
-          <h4 className="text-white font-bold mb-6">Services</h4>
+          <h4 className="text-white font-bold mb-6">{t("footer.serviceLinks.title")}</h4>
           <ul className="space-y-4 text-sm">
             <li>
               <Link
                 to="/services"
                 className="hover:text-emerald-500 transition-colors"
               >
-                Lawn Maintenance
+                {t("footer.serviceLinks.lawnMaintenance")}
               </Link>
             </li>
             <li>
@@ -122,7 +124,7 @@ const Footer = () => {
                 to="/services"
                 className="hover:text-emerald-500 transition-colors"
               >
-                Garden Cleanup
+                {t("footer.serviceLinks.gardenCleanup")}
               </Link>
             </li>
             <li>
@@ -130,7 +132,7 @@ const Footer = () => {
                 to="/services"
                 className="hover:text-emerald-500 transition-colors"
               >
-                Patio Repair
+                {t("footer.serviceLinks.patioRepair")}
               </Link>
             </li>
             <li>
@@ -138,14 +140,14 @@ const Footer = () => {
                 to="/services"
                 className="hover:text-emerald-500 transition-colors"
               >
-                Snow Removal
+                {t("footer.serviceLinks.snowRemoval")}
               </Link>
             </li>
           </ul>
         </div>
 
         <div className="col-span-2 lg:col-span-1">
-          <h4 className="text-white font-bold mb-6">Contact Info</h4>
+          <h4 className="text-white font-bold mb-6">{t("footer.contactInfo")}</h4>
           <ul className="space-y-4 text-sm">
             <li className="flex items-start space-x-3">
               <Phone size={18} className="text-emerald-500 shrink-0 mt-0.5" />
@@ -165,8 +167,7 @@ const Footer = () => {
 
       <div className="container-custom mt-20 pt-8 border-t border-slate-900 text-center text-xs">
         <p>
-          &copy; {new Date().getFullYear()} Canela Landscaping & Snow Plow. All
-          rights reserved.
+          &copy; {new Date().getFullYear()} Canela Landscaping & Snow Plow. {t("footer.rights")}
         </p>
       </div>
     </footer>

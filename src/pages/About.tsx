@@ -1,7 +1,9 @@
 import { motion, type Variants } from "framer-motion";
 import { Users, ShieldCheck, Target, Award } from "lucide-react";
+import { useTranslation, Trans } from "react-i18next";
 
 const About = () => {
+  const { t } = useTranslation();
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
@@ -60,20 +62,19 @@ const About = () => {
             transition={{ duration: 1 }}
           >
             <span className="text-emerald-600 font-bold text-sm uppercase tracking-widest mb-4 block underline decoration-emerald-200 underline-offset-8">
-              Our Story
+              {t("about.story.badge")}
             </span>
             <h1 className="text-5xl md:text-7xl font-black text-slate-950 mb-8 tracking-tight">
-              Rooted in <br />
-              Quality.
+              <Trans i18nKey="about.story.title">
+                Rooted in <br />
+                Quality.
+              </Trans>
             </h1>
             <p className="text-xl text-slate-600 leading-relaxed mb-8">
-              Founded over 15 years ago, Canela Landscaping began with a simple
-              mission: to provide the highest level of craftsmanship and care
-              for every outdoor space we touch.
+              {t("about.story.content")}
             </p>
             <p className="text-lg text-slate-500 leading-relaxed italic border-l-4 border-emerald-500 pl-6 py-2">
-              "We don't just mow lawns; we cultivate environments where families
-              grow and memories are made."
+              {t("about.story.quote")}
             </p>
           </motion.div>
         </div>
@@ -92,9 +93,9 @@ const About = () => {
             <div className="bg-white/10 w-16 h-16 rounded-2xl flex items-center justify-center mb-8 backdrop-blur-sm border border-white/10 group-hover:scale-110 transition-transform duration-500">
               <Target className="text-emerald-400" size={32} />
             </div>
-            <h3 className="text-3xl font-black text-white mb-6 tracking-tight">Our Mission</h3>
+            <h3 className="text-3xl font-black text-white mb-6 tracking-tight">{t("about.mission.title")}</h3>
             <p className="text-slate-400 leading-relaxed text-lg italic">
-              "To elevate the standard of residential landscaping through innovation, reliability, and artistic design."
+              {t("about.mission.content")}
             </p>
           </motion.div>
 
@@ -104,9 +105,9 @@ const About = () => {
             <div className="bg-white w-16 h-16 rounded-2xl flex items-center justify-center mb-8 shadow-inner group-hover:rotate-12 transition-transform duration-500">
               <ShieldCheck className="text-emerald-600" size={32} />
             </div>
-            <h3 className="text-3xl font-black text-white mb-6 tracking-tight">Our Promise</h3>
+            <h3 className="text-3xl font-black text-white mb-6 tracking-tight">{t("about.promise.title")}</h3>
             <p className="text-emerald-50 leading-relaxed text-lg font-medium">
-              Full insurance, certified technicians, and a satisfaction guarantee on every single project we undertake.
+              {t("about.promise.content")}
             </p>
           </motion.div>
 
@@ -116,9 +117,9 @@ const About = () => {
               <div className="bg-emerald-50 w-16 h-16 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-emerald-600 transition-all duration-500">
                 <Users className="text-emerald-600 group-hover:text-white transition-colors duration-500" size={32} />
               </div>
-              <h3 className="text-3xl font-black text-slate-900 mb-6 tracking-tight">Our Team</h3>
+              <h3 className="text-3xl font-black text-slate-900 mb-6 tracking-tight">{t("about.team.card.title")}</h3>
               <p className="text-slate-500 leading-relaxed text-lg">
-                A dedicated group of horticultural experts, designers, and maintenance pros who love what they do.
+                {t("about.team.card.description")}
               </p>
             </a>
           </motion.div>
@@ -134,16 +135,13 @@ const About = () => {
             className="text-center max-w-3xl mx-auto mb-20"
           >
             <span className="text-emerald-600 font-bold text-sm uppercase tracking-widest mb-4 block underline decoration-emerald-200 underline-offset-8">
-              The Experts
+              {t("about.team.badge")}
             </span>
             <h2 className="text-4xl md:text-6xl font-black text-slate-950 mb-8 tracking-tight">
-              Meet the Canela Family.
+              {t("about.team.title")}
             </h2>
             <p className="text-xl text-slate-500 max-w-2xl mx-auto leading-relaxed">
-              At Canela Landscaping, we treat every lawn like our own. As a
-              family-owned and operated team, our passion for excellence is a
-              personal commitment from our family to yours—led with heart by
-              Domingo and Nora.
+              {t("about.team.description")}
             </p>
           </motion.div>
 
@@ -156,18 +154,20 @@ const About = () => {
           >
             {[
               {
+                id: "domingo",
                 name: "Domingo Canela",
-                role: "Founder & Master Craftsman",
+                role: t("about.members.domingo"),
                 img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=600",
               },
               {
+                id: "nora",
                 name: "Nora Canela",
-                role: "Co-Founder & Operations",
+                role: t("about.members.nora"),
                 img: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=600",
               },
-            ].map((member, idx) => (
+            ].map((member) => (
               <motion.div 
-                key={idx} 
+                key={member.id} 
                 variants={itemVariants}
                 className="relative group"
               >

@@ -1,12 +1,14 @@
 import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Globe } from "lucide-react";
 import { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { GALLERY_IMAGES, prefetchImages } from "../data/gallery-assets";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { t, i18n } = useTranslation();
   const location = useLocation();
 
   useEffect(() => {
@@ -16,10 +18,10 @@ const Navbar = () => {
   }, []);
 
   const navLinks = [
-    { name: "About", path: "/about" },
-    { name: "Services", path: "/services" },
-    { name: "Gallery", path: "/gallery" },
-    { name: "Contact", path: "/contact" },
+    { name: t("nav.about"), path: "/about" },
+    { name: t("nav.services"), path: "/services" },
+    { name: t("nav.gallery"), path: "/gallery" },
+    { name: t("nav.contact"), path: "/contact" },
   ];
 
   const handlePrefetch = (path: string) => {
@@ -28,8 +30,13 @@ const Navbar = () => {
     }
   };
 
+  const toggleLanguage = () => {
+    const newLang = i18n.language.startsWith("es") ? "en" : "es";
+    i18n.changeLanguage(newLang);
+  };
+
   const isHome = location.pathname === "/";
-  const showAlt = scrolled || !isHome;
+  const showAlt = scrolled || !isHome || isOpen;
 
   return (
     <nav
@@ -68,16 +75,35 @@ const Navbar = () => {
                 {link.name}
               </Link>
             ))}
+            
+            <button
+              onClick={toggleLanguage}
+              className={`flex items-center gap-2 text-xs font-bold uppercase tracking-wider py-1 px-3 rounded-full border transition-all ${
+                showAlt
+                  ? "border-slate-200 text-slate-600 hover:bg-slate-50"
+                  : "border-white/20 text-white/80 hover:bg-white/10"
+              }`}
+            >
+              <Globe size={14} />
+              {i18n.language.startsWith("es") ? "EN" : "ES"}
+            </button>
+
             <Link
               to="/contact"
               className="bg-emerald-600 text-white px-5 py-2 rounded-full text-sm font-bold shadow-lg hover:bg-emerald-700 transition-all font-inter"
             >
-              Get Quote
+              {t("nav.getQuote")}
             </Link>
           </div>
 
           {/* Mobile menu button */}
-          <div className="md:hidden flex items-center">
+          <div className="md:hidden flex items-center gap-4">
+            <button
+              onClick={toggleLanguage}
+              className={`text-sm font-bold uppercase ${showAlt ? "text-slate-600" : "text-white/80"}`}
+            >
+              {i18n.language.startsWith("es") ? "EN" : "ES"}
+            </button>
             <button
               onClick={() => setIsOpen(!isOpen)}
               className={showAlt ? "text-slate-900" : "text-white"}
@@ -107,6 +133,13 @@ const Navbar = () => {
                 {link.name}
               </Link>
             ))}
+            <Link
+              to="/contact"
+              onClick={() => setIsOpen(false)}
+              className="text-right block px-3 py-2 text-base font-bold text-emerald-600"
+            >
+              {t("nav.getQuote")}
+            </Link>
           </div>
         </motion.div>
       )}

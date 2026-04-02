@@ -2,8 +2,10 @@ import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { services } from "../data/services";
 import { Link, useLocation } from "react-router-dom";
+import { useTranslation, Trans } from "react-i18next";
 
 const Gallery = () => {
+  const { t } = useTranslation();
   // Service-specific image portfolios (completely local project photos)
   const serviceImages: Record<string, string[]> = {
     "lawn-mowing": [
@@ -97,6 +99,16 @@ const Gallery = () => {
     }
   }, [location.hash]);
 
+  const getCategoryLabel = (cat: string) => {
+    switch (cat) {
+      case "Lawn Care": return t("servicesPage.filters.lawnCare");
+      case "Maintenance": return t("servicesPage.filters.maintenance");
+      case "Specialty": return t("servicesPage.filters.specialty");
+      case "Seasonal": return t("servicesPage.filters.seasonal");
+      default: return cat;
+    }
+  };
+
   return (
     <div className="pt-56 pb-32 bg-white/50">
       {/* Mobile/Tablet Fixed Navigation Bar */}
@@ -112,7 +124,7 @@ const Gallery = () => {
               }
               className="whitespace-nowrap px-6 py-2.5 bg-white border border-slate-200 rounded-full text-xs font-black uppercase tracking-wider text-slate-900 shadow-sm active:scale-95 transition-transform"
             >
-              {category}
+              {getCategoryLabel(category)}
             </button>
           ))}
         </div>
@@ -122,14 +134,13 @@ const Gallery = () => {
         {/* Header Section */}
         <div className="text-center max-w-2xl mx-auto mb-20 lg:mb-24">
           <span className="text-emerald-600 font-bold text-sm uppercase tracking-widest mb-4 block underline decoration-emerald-200 underline-offset-8">
-            The Portfolio
+            {t("gallery.badge")}
           </span>
           <h1 className="text-5xl md:text-7xl font-black text-slate-950 mb-8 tracking-tight">
-            Our Extensive Work
+            {t("gallery.title")}
           </h1>
           <p className="text-xl text-slate-500 leading-relaxed font-medium">
-            Explore our comprehensive gallery of transformations across
-            Cleveland, organized by service types and project category.
+            {t("gallery.subtitle")}
           </p>
         </div>
 
@@ -139,7 +150,7 @@ const Gallery = () => {
             <div className="sticky top-32 space-y-6 bg-white p-6 rounded-[2rem] border border-slate-100 shadow-sm hidden lg:block">
               <div>
                 <h4 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-6">
-                  Navigation
+                  {t("gallery.nav")}
                 </h4>
                 <nav className="space-y-6">
                   {categories.map((category) => (
@@ -152,7 +163,7 @@ const Gallery = () => {
                         }
                         className="text-sm font-black text-slate-900 hover:text-emerald-600 transition-colors uppercase tracking-tight"
                       >
-                        {category}
+                        {getCategoryLabel(category)}
                       </button>
                       <div className="pl-4 space-y-2 border-l border-slate-100">
                         {services
@@ -165,7 +176,7 @@ const Gallery = () => {
                               }
                               className="block text-xs font-bold text-slate-400 hover:text-emerald-500 transition-colors text-left"
                             >
-                              {service.title}
+                              {t(`services.${service.id}.title`)}
                             </button>
                           ))}
                       </div>
@@ -193,7 +204,7 @@ const Gallery = () => {
                   {/* Category Heading */}
                   <div className="flex items-center gap-6 mb-16">
                     <h2 className="text-4xl md:text-5xl font-black text-slate-950 whitespace-nowrap uppercase tracking-tighter">
-                      {category}
+                      {getCategoryLabel(category)}
                     </h2>
                     <div className="h-px bg-slate-200 w-full"></div>
                   </div>
@@ -210,10 +221,10 @@ const Gallery = () => {
                           <div className="max-w-xl">
                             <h3 className="text-2xl font-bold text-slate-900 mb-3 flex items-center gap-3">
                               <span className="w-2 h-8 bg-emerald-500 rounded-full"></span>
-                              {service.title}
+                              {t(`services.${service.id}.title`)}
                             </h3>
                             <p className="text-slate-500 text-sm italic">
-                              {service.description}
+                              {t(`services.${service.id}.description`)}
                             </p>
                           </div>
                         </div>
@@ -237,7 +248,7 @@ const Gallery = () => {
                                       : `https://images.unsplash.com/${imgUrl}?auto=format&fit=crop&q=80&w=800`
                                   }
                                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                                  alt={`${service.title} View ${imgIdx + 1}`}
+                                  alt={`${t(`services.${service.id}.title`)} View ${imgIdx + 1}`}
                                   loading="lazy"
                                 />
                               </motion.div>
@@ -265,13 +276,15 @@ const Gallery = () => {
           </div>
           <div className="relative">
             <h3 className="text-4xl md:text-6xl font-black mb-8 tracking-tight">
-              Ready for your <br />
-              <span className="text-emerald-500 italic">
-                next transformation?
-              </span>
+              <Trans i18nKey="gallery.cta.title">
+                Ready for your <br />
+                <span className="text-emerald-500 italic">
+                  next transformation?
+                </span>
+              </Trans>
             </h3>
             <p className="text-xl text-white/50 mb-12 max-w-lg mx-auto">
-              Bring Domingo Canela's expertise to your property today.
+              {t("gallery.cta.subtitle")}
             </p>
             <Link to="/contact">
               <motion.button
@@ -279,7 +292,7 @@ const Gallery = () => {
                 whileTap={{ scale: 0.95 }}
                 className="bg-emerald-600 text-white px-12 py-6 rounded-full font-bold text-lg shadow-2xl shadow-emerald-600/30 hover:bg-emerald-700 transition-all font-inter"
               >
-                Contact Now
+                {t("gallery.cta.button")}
               </motion.button>
             </Link>
           </div>

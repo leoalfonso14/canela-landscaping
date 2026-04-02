@@ -3,8 +3,10 @@ import { services } from "../data/services";
 import ServiceCard from "../components/ServiceCard";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation, Trans } from "react-i18next";
 
 const Services = () => {
+  const { t } = useTranslation();
   const [activeCategory, setActiveCategory] = useState<
     "All" | "Lawn Care" | "Maintenance" | "Specialty" | "Seasonal"
   >("All");
@@ -22,6 +24,17 @@ const Services = () => {
       ? services
       : services.filter((s) => s.category === activeCategory);
 
+  const getCategoryLabel = (cat: string) => {
+    switch (cat) {
+      case "All": return t("servicesPage.filters.all");
+      case "Lawn Care": return t("servicesPage.filters.lawnCare");
+      case "Maintenance": return t("servicesPage.filters.maintenance");
+      case "Specialty": return t("servicesPage.filters.specialty");
+      case "Seasonal": return t("servicesPage.filters.seasonal");
+      default: return cat;
+    }
+  };
+
   return (
     <div className="pt-32 pb-32 bg-slate-50/50">
       <div className="container-custom">
@@ -32,16 +45,16 @@ const Services = () => {
           className="text-center max-w-3xl mx-auto mb-20"
         >
           <span className="text-emerald-600 font-bold text-sm uppercase tracking-widest mb-4 block underline decoration-emerald-200 underline-offset-8">
-            Our Expertise
+            {t("servicesPage.badge")}
           </span>
           <h1 className="text-5xl md:text-7xl font-black text-slate-950 mb-8 tracking-tight">
-            Comprehensive <br />
-            Landscape Solutions.
+            <Trans i18nKey="servicesPage.title">
+              Comprehensive <br />
+              Landscape Solutions.
+            </Trans>
           </h1>
           <p className="text-xl text-slate-500 leading-relaxed">
-            From precision lawn maintenance to complex stone repairs and
-            seasonal preparation, we cover every aspect of your outdoor
-            environment.
+            {t("servicesPage.subtitle")}
           </p>
         </motion.div>
 
@@ -62,7 +75,7 @@ const Services = () => {
                   : "bg-white text-slate-500 border border-slate-200 hover:border-emerald-600 hover:text-emerald-600"
               }`}
             >
-              {cat}
+              {getCategoryLabel(cat)}
             </button>
           ))}
         </motion.div>
@@ -81,15 +94,14 @@ const Services = () => {
         >
           <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-100 rounded-full blur-[100px] -mr-32 -mt-32" />
           <h2 className="text-3xl md:text-5xl font-black text-slate-900 mb-8 relative">
-            Don't see what you're looking for?
+            {t("servicesPage.cta.title")}
           </h2>
           <p className="text-lg text-slate-600 max-w-2xl mx-auto mb-12 relative">
-            We provide custom landscape and maintenance packages tailored to
-            your specific needs. Reach out for a specialized consultation.
+            {t("servicesPage.cta.subtitle")}
           </p>
           <Link to="/contact">
             <button className="bg-slate-900 text-white px-10 py-5 rounded-full font-bold relative hover:bg-slate-800 transition-all hover:scale-105 shadow-xl">
-              Request Custom Consultation
+              {t("servicesPage.cta.button")}
             </button>
           </Link>
         </motion.div>

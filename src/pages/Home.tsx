@@ -1,10 +1,13 @@
 import { motion, type Variants } from "framer-motion";
 import { ArrowRight, CheckCircle2, Star, Quote } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useTranslation, Trans } from "react-i18next";
 import ServiceCard from "../components/ServiceCard";
 import { services } from "../data/services";
+// import TemporaryManualExport from "../components/TemporaryManualExport";
 
 const Home = () => {
+  const { t } = useTranslation();
   const featuredServices = [
     services[0],  // Professional Lawn Mowing
     services[5],  // Mulch Installation
@@ -32,6 +35,7 @@ const Home = () => {
 
   return (
     <div className="overflow-hidden">
+      {/* <TemporaryManualExport /> */}
       {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center text-white">
         <div className="absolute inset-0 overflow-hidden">
@@ -57,7 +61,7 @@ const Home = () => {
             animate={{ opacity: 1, y: 0 }}
             className="inline-block px-4 py-1 rounded-full bg-emerald-500/20 backdrop-blur-md border border-emerald-500/30 text-emerald-400 font-bold text-xs uppercase tracking-widest mb-6"
           >
-            Premium Landscaping
+            {t("hero.badge")}
           </motion.span>
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
@@ -65,10 +69,12 @@ const Home = () => {
             transition={{ delay: 0.2 }}
             className="text-5xl md:text-8xl font-black mb-8 leading-tight tracking-tight"
           >
-            Expert Care for <br />
-            <span className="text-brand-secondary italic">
-              Your Outdoor Home.
-            </span>
+            <Trans i18nKey="hero.title">
+              Expert Care for <br />
+              <span className="text-brand-secondary italic">
+                Your Outdoor Home.
+              </span>
+            </Trans>
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 30 }}
@@ -76,8 +82,7 @@ const Home = () => {
             transition={{ delay: 0.4 }}
             className="text-xl md:text-2xl text-white/80 mb-12 max-w-2xl mx-auto font-light leading-relaxed"
           >
-            Transforming your outdoor spaces into living masterpieces with
-            precision, passion, and unparalleled expertise.
+            {t("hero.subtitle")}
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -89,13 +94,13 @@ const Home = () => {
               to="/contact"
               className="bg-emerald-600 text-white px-10 py-5 rounded-full font-bold text-lg shadow-2xl shadow-emerald-600/20 hover:bg-emerald-700 transition-all hover:scale-105"
             >
-              Get a Free Estimate
+              {t("hero.cta")}
             </Link>
             <Link
               to="/services"
               className="px-10 py-5 rounded-full font-bold text-lg border border-white/30 hover:bg-white/10 backdrop-blur-md transition-all flex items-center gap-2"
             >
-              Our Services <ArrowRight size={20} />
+              {t("hero.services")} <ArrowRight size={20} />
             </Link>
           </motion.div>
         </div>
@@ -126,28 +131,26 @@ const Home = () => {
             className="flex items-center gap-2 font-bold text-slate-900 border-r border-slate-200 pr-8 last:border-0 last:pr-0"
           >
             <Star size={24} className="text-emerald-500 fill-emerald-500" />{" "}
-            Rated 5 Stars
+            {t("trust.rated5")}
           </motion.div>
           <motion.div
             variants={itemVariants}
             className="flex items-center gap-2 font-bold text-slate-900 border-r border-slate-200 pr-8 last:border-0 last:pr-0"
           >
-            <CheckCircle2 size={24} className="text-emerald-500" /> Fully
-            Insured
+            <CheckCircle2 size={24} className="text-emerald-500" /> {t("trust.fullyInsured")}
           </motion.div>
           <motion.div
             variants={itemVariants}
             className="flex items-center gap-2 font-bold text-slate-900 border-r border-slate-200 pr-8 last:border-0 last:pr-0"
           >
-            <CheckCircle2 size={24} className="text-emerald-500" /> 15+ Years
-            Experience
+            <CheckCircle2 size={24} className="text-emerald-500" /> {t("trust.yearsExp")}
           </motion.div>
           <motion.div
             variants={itemVariants}
             className="flex items-center gap-2 font-bold text-slate-900"
           >
             <Star size={24} className="text-emerald-500 fill-emerald-500" />{" "}
-            Certified Arborists
+            {t("trust.certified")}
           </motion.div>
         </motion.div>
       </section>
@@ -164,18 +167,20 @@ const Home = () => {
           >
             <div>
               <span className="text-emerald-600 font-bold text-sm uppercase tracking-widest mb-4 block">
-                What we do
+                {t("home.whatWeDo.badge")}
               </span>
               <h2 className="text-4xl md:text-6xl font-black text-slate-950 tracking-tight leading-tight">
-                Crafting Exceptional <br />
-                Outdoor Experiences.
+                <Trans i18nKey="home.whatWeDo.title">
+                  Crafting Exceptional <br />
+                  Outdoor Experiences.
+                </Trans>
               </h2>
             </div>
             <Link
               to="/services"
               className="text-emerald-600 font-bold flex items-center gap-2 mt-8 md:mt-0 hover:gap-4 transition-all"
             >
-              View All 15+ Services <ArrowRight size={20} />
+              {t("home.whatWeDo.viewAll")} <ArrowRight size={20} />
             </Link>
           </motion.div>
 
@@ -215,7 +220,7 @@ const Home = () => {
             >
               <span className="text-5xl font-black block mb-2">1k+</span>
               <span className="text-sm font-bold opacity-80 uppercase tracking-widest">
-                Properties Restored
+                {t("home.whyUs.stats")}
               </span>
             </motion.div>
           </motion.div>
@@ -229,30 +234,33 @@ const Home = () => {
           >
             <div>
               <span className="text-emerald-600 font-bold text-sm uppercase tracking-widest mb-4 block">
-                The Canela Difference
+                {t("home.whyUs.badge")}
               </span>
               <h2 className="text-4xl md:text-5xl font-black text-slate-950 leading-tight">
-                Why homeowners trust us with their vision.
+                {t("home.whyUs.title")}
               </h2>
             </div>
 
             <div className="space-y-8">
               {[
                 {
-                  title: "Quality Guaranteed",
-                  desc: "We never cut corners. Our team uses the highest-grade materials and equipment.",
+                  id: "quality",
+                  title: t("home.whyUs.quality.title"),
+                  desc: t("home.whyUs.quality.desc"),
                 },
                 {
-                  title: "Reliable Schedules",
-                  desc: "We show up when we say we will. Your time is valuable, and we respect it.",
+                  id: "reliable",
+                  title: t("home.whyUs.reliable.title"),
+                  desc: t("home.whyUs.reliable.desc"),
                 },
                 {
-                  title: "Passionate Care",
-                  desc: "We treat every garden as if it were our own, with attention to every detail.",
+                  id: "passionate",
+                  title: t("home.whyUs.passionate.title"),
+                  desc: t("home.whyUs.passionate.desc"),
                 },
               ].map((item, idx) => (
                 <motion.div
-                  key={idx}
+                  key={item.id}
                   initial={{ opacity: 0, y: 10 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -291,16 +299,14 @@ const Home = () => {
         >
           <Quote className="text-emerald-500 mb-8 mx-auto" size={48} />
           <p className="text-3xl md:text-4xl font-black italic leading-snug mb-12">
-            "Canela Landscaping completely transformed our backyard. Their
-            attention to detail during the spring cleanup was unlike anything
-            we've seen before. Our lawn has never looked better!"
+            "{t("home.testimonials.quote")}"
           </p>
           <div className="flex flex-col items-center">
             <span className="text-xl font-bold text-emerald-400">
-              Sarah & Michael J.
+              {t("home.testimonials.author")}
             </span>
             <span className="text-sm text-white/50 uppercase tracking-widest mt-2">
-              Homeowners, Cleveland, Ohio
+              {t("home.testimonials.location")}
             </span>
           </div>
         </motion.div>
@@ -316,20 +322,21 @@ const Home = () => {
           className="max-w-4xl mx-auto px-4"
         >
           <h2 className="text-4xl md:text-6xl font-black text-slate-950 mb-8 tracking-tight">
-            Ready to start your <br />
-            <span className="text-emerald-600 italic">
-              next outdoor project?
-            </span>
+            <Trans i18nKey="home.cta.title">
+              Ready to start your <br />
+              <span className="text-emerald-600 italic">
+                next outdoor project?
+              </span>
+            </Trans>
           </h2>
           <p className="text-xl text-slate-500 mb-12">
-            Join hundreds of happy homeowners today. Get a free, no-obligation
-            quote.
+            {t("home.cta.subtitle")}
           </p>
           <Link
             to="/contact"
             className="inline-block bg-emerald-600 text-white px-12 py-6 rounded-full font-bold text-xl shadow-2xl shadow-emerald-600/30 hover:bg-emerald-700 transition-all hover:scale-105"
           >
-            Start My Transformation
+            {t("home.cta.button")}
           </Link>
         </motion.div>
       </section>

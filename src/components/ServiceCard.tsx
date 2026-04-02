@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import * as LucideIcons from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import type { Service } from '../data/services';
 
 interface ServiceCardProps {
@@ -9,8 +10,11 @@ interface ServiceCardProps {
 }
 
 const ServiceCard = ({ service, id }: ServiceCardProps) => {
+  const { t } = useTranslation();
   // @ts-expect-error - Dynamic icon lookup
   const Icon = LucideIcons[service.icon] || LucideIcons.Leaf;
+
+  const categoryKey = service.category === 'Lawn Care' ? 'lawnCare' : service.category.toLowerCase();
 
   return (
     <Link to={`/gallery#${service.id}`} className="block h-full">
@@ -35,17 +39,17 @@ const ServiceCard = ({ service, id }: ServiceCardProps) => {
             <Icon size={36} className="text-emerald-600 group-hover:text-white transition-all duration-500" />
           </div>
           <span className="text-sm font-extrabold text-emerald-600 uppercase tracking-[0.2em] mb-3 block">
-            {service.category}
+            {t(`services.categories.${categoryKey}`)}
           </span>
           <h3 className="text-2xl font-black text-slate-900 mb-4 group-hover:text-emerald-700 transition-colors">
-            {service.title}
+            {t(`services.${service.id}.title`)}
           </h3>
           <p className="text-slate-500 text-base leading-relaxed mb-8 flex-grow">
-            {service.description}
+            {t(`services.${service.id}.description`)}
           </p>
           <div className="flex items-center justify-between mt-auto">
             <div className="flex items-center gap-2 text-emerald-600 font-bold group/link">
-              <span className="group-hover:underline underline-offset-4">View Proof</span>
+              <span className="group-hover:underline underline-offset-4">{t("home.whatWeDo.viewProof", { defaultValue: "View Proof" })}</span>
               <LucideIcons.ArrowRight size={18} className="group-hover/link:translate-x-2 transition-transform duration-300" />
             </div>
             <div className="w-10 h-1 bg-emerald-100 rounded-full group-hover:w-16 group-hover:bg-emerald-500 transition-all duration-500" />

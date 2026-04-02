@@ -12,7 +12,7 @@ import GalleryPrefetch from "./components/GalleryPrefetch";
 import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/AdminDashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
-import { AuthProvider } from "./context/AuthContext";
+import { AuthProvider } from "./context/AuthProvider";
 
 function App() {
   const { pathname, hash } = useLocation();
