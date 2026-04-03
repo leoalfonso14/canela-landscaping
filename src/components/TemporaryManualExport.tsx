@@ -23,20 +23,58 @@ const TemporaryManualExport = () => {
       </div>
 
       {/* Printable Content - Only visible when printing */}
-      <div className="hidden print:block p-12 bg-white text-slate-900 font-sans max-w-4xl mx-auto">
+      <div className="hidden print:block p-12 bg-white text-slate-900 font-sans max-w-4xl mx-auto print-manual-container">
         <style dangerouslySetInnerHTML={{ __html: `
           @media print {
-            body * { visibility: hidden; }
-            .print-manual, .print-manual * { visibility: visible; }
-            .print-manual { position: absolute; left: 0; top: 0; width: 100%; }
-            h1 { font-size: 32pt; font-weight: 900; margin-bottom: 20pt; color: #064e3b; border-bottom: 2pt solid #10b981; padding-bottom: 10pt; }
-            h2 { font-size: 24pt; font-weight: 800; margin-top: 30pt; margin-bottom: 15pt; color: #065f46; }
-            h3 { font-size: 18pt; font-weight: 700; margin-top: 20pt; margin-bottom: 10pt; color: #047857; }
-            p { font-size: 12pt; line-height: 1.6; margin-bottom: 10pt; color: #334155; }
-            ul, ol { margin-bottom: 15pt; padding-left: 20pt; }
-            li { font-size: 12pt; margin-bottom: 5pt; }
-            img { max-width: 100%; height: auto; margin: 20pt 0; border-radius: 12pt; border: 1pt solid #e2e8f0; }
-            .page-break { page-break-after: always; }
+            /* Fix: Hide all other content without reserving space */
+            @page {
+              size: auto;
+              margin: 10mm;
+            }
+            body { 
+              background: white !important;
+              padding: 0 !important;
+              margin: 0 !important;
+            }
+            /* Use a very aggressive visibility hide */
+            body * {
+              visibility: hidden !important;
+              height: 0 !important;
+              overflow: hidden !important;
+              padding: 0 !important;
+              margin: 0 !important;
+              border: none !important;
+            }
+            /* Specifically show the manual and its children */
+            .print-manual-container, 
+            .print-manual-container * {
+              visibility: visible !important;
+              height: auto !important;
+              overflow: visible !important;
+              position: relative !important;
+            }
+            .print-manual-container {
+              display: block !important;
+              position: absolute !important;
+              top: 0 !important;
+              left: 0 !important;
+              width: 100% !important;
+              padding: 2cm !important;
+              margin: 0 !important;
+              background: white !important;
+            }
+            h1 { font-size: 32pt; font-weight: 900; margin-bottom: 20pt; color: #064e3b; border-bottom: 2pt solid #10b981; padding-bottom: 10pt; display: block !important; }
+            h2 { font-size: 24pt; font-weight: 800; margin-top: 30pt; margin-bottom: 15pt; color: #065f46; display: block !important; }
+            h3 { font-size: 18pt; font-weight: 700; margin-top: 20pt; margin-bottom: 10pt; color: #047857; display: block !important; }
+            p { font-size: 12pt; line-height: 1.6; margin-bottom: 10pt; color: #334155; display: block !important; }
+            ul, ol { margin-bottom: 15pt; padding-left: 20pt; display: block !important; }
+            li { font-size: 12pt; margin-bottom: 5pt; display: list-item !important; }
+            .page-break { 
+              page-break-after: always !important; 
+              height: 0 !important; 
+              display: block !important;
+              visibility: hidden !important;
+            }
           }
         `}} />
 
@@ -47,9 +85,6 @@ const TemporaryManualExport = () => {
           </div>
 
           <section>
-            <h1>📖 Manual del Propietario: Lanzamiento de su Sitio Web</h1>
-            <p>¡Bienvenido! Para poner en marcha su sitio web con <strong>cero costos mensuales de alojamiento</strong>, siga esta guía sencilla paso a paso. Hemos diseñado esto para propietarios no técnicos para que la entrega sea lo más fluida posible.</p>
-            
             <hr className="my-8 opacity-20" />
 
             <h2>🛠️ Fase 1: Configuración de GitHub (Su Código)</h2>

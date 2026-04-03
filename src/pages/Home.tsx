@@ -9,9 +9,9 @@ import { services } from "../data/services";
 const Home = () => {
   const { t } = useTranslation();
   const featuredServices = [
-    services[0],  // Professional Lawn Mowing
-    services[5],  // Mulch Installation
-    services[14]  // Snow Plowing
+    services[0], // Professional Lawn Mowing
+    services[5], // Mulch Installation
+    services[14], // Snow Plowing
   ];
 
   const containerVariants = {
@@ -137,13 +137,15 @@ const Home = () => {
             variants={itemVariants}
             className="flex items-center gap-2 font-bold text-slate-900 border-r border-slate-200 pr-8 last:border-0 last:pr-0"
           >
-            <CheckCircle2 size={24} className="text-emerald-500" /> {t("trust.fullyInsured")}
+            <CheckCircle2 size={24} className="text-emerald-500" />{" "}
+            {t("trust.fullyInsured")}
           </motion.div>
           <motion.div
             variants={itemVariants}
             className="flex items-center gap-2 font-bold text-slate-900 border-r border-slate-200 pr-8 last:border-0 last:pr-0"
           >
-            <CheckCircle2 size={24} className="text-emerald-500" /> {t("trust.yearsExp")}
+            <CheckCircle2 size={24} className="text-emerald-500" />{" "}
+            {t("trust.yearsExp")}
           </motion.div>
           <motion.div
             variants={itemVariants}
